@@ -3,10 +3,11 @@ package com.gredi.manual_dependency_injection
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainActivityViewModel by viewModels()
 
     private lateinit var button: Button
     private lateinit var textLabel: TextView
@@ -23,9 +24,11 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViews() {
         button = findViewById(R.id.button_random_number)
         textLabel = findViewById(R.id.text_label)
+        textLabel.text = viewModel.number.toString()
 
         button.setOnClickListener {
-            textLabel.text = Random.nextInt(100).toString()
+            viewModel.getRandomNumber()
+            textLabel.text = viewModel.number.toString()
         }
     }
 }
